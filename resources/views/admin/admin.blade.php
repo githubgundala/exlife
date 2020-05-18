@@ -1,7 +1,8 @@
 @extends('layouts.layout')
 @section('menAdmin','active')
 @section('content')
-<div class="card">
+<div class="row">
+<div class="card col-md-12">
   <div class="card-header">
     <h3 class="card-title">Data List Admin</h3>
     @if ($count <= 3)
@@ -45,6 +46,7 @@
     </table>
   </div>
   <!-- /.card-body -->
+</div>
 </div>
 <!-- /.card -->
 

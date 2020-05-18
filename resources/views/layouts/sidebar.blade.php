@@ -11,14 +11,38 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           @if (Auth::check())
           <li class="nav-item">
-            <a href="#" class="nav-link @yield('menProfile')">
+            <a href="/member/dashboard" class="nav-link @yield('menDash')">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/member/profile" class="nav-link @yield('menProfile')">
               <i class="nav-icon fas fa-id-card"></i>
               <p>
                 Profile
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="/logoutuser" class="nav-link" onclick="logout()" id="keluar">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>
+                Keluar
+              </p>
+            </a>
+          </li>
           @else
+          <li class="nav-item">
+            <a href="/admin/dashboard" class="nav-link @yield('menDash')">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
           @if (Auth::guard('admin')->user()->role == 0)
           <li class="nav-item">
             <a href="/admin/admin" class="nav-link @yield('menAdmin')">
@@ -53,7 +77,6 @@
               </p>
             </a>
           </li>
-          @endif
           <li class="nav-item">
             <a href="/logoutall" class="nav-link" onclick="logout()" id="keluar">
               <i class="nav-icon fas fa-sign-out-alt"></i>
@@ -62,6 +85,7 @@
               </p>
             </a>
           </li>
+          @endif
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

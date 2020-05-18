@@ -19,12 +19,13 @@ Route::get('/', function () {
 });
 Auth::routes();
 Route::get('logoutall', 'Auth\LoginController@logoutall');
+Route::get('logoutuser', 'Auth\LoginController@logout');
 Route::post('checkemail', 'Auth\RegisterController@checkemail');
 Route::post('checkemailmember', 'MemberController@checkemail');
 Route::post('checkusername', 'MemberController@checkusername');
 Route::middleware('admin')->group(function () {
     Route::prefix('admin')->group(function () {
-        Route::get('home', 'AdminController@home');
+        Route::get('dashboard', 'AdminController@home');
         // crud admin
         Route::get('admin', 'AdminController@admin');
         Route::post('create', 'Auth\RegisterController@createAdmin');
@@ -47,8 +48,12 @@ Route::middleware('admin')->group(function () {
 });
 Route::middleware('auth')->group(function () {
     Route::prefix('member')->group(function () {
-        Route::get('info/{userid}', 'MemberController@memberInfo');
-        Route::get('/', 'MemberController@memberHome');
+        Route::get('info/{count}/{userid}', 'MemberController@memberInfo1');
+        Route::get('/dashboard', 'MemberController@memberHome');
+        Route::post('/update', 'MemberController@updateMember1');
+        Route::get('profile', function () {
+            return view('member.profile');
+        });
     });
 });
 // Route::get('/home', 'HomeController@index')->name('home');

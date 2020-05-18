@@ -42,10 +42,10 @@ class LoginController extends Controller
     }
     public function showLoginForm(){
         if(Auth::user()){
-            return redirect('user/user');
+            return redirect('member/dashboard');
         }else if(Auth::guard('admin')->user()){
 
-            return redirect('admin/admin');
+            return redirect('admin/dashboard');
         }else{
             return view('auth.login');
         }
@@ -58,7 +58,7 @@ class LoginController extends Controller
                 'password'  => $request->password
             ]);
             if ($auth) {  
-                return Redirect()->to('admin/member');
+                return Redirect()->to('admin/dashboard');
             } else {
                 return redirect()->back()
                 ->with('alertlogin',TRUE);
@@ -69,7 +69,7 @@ class LoginController extends Controller
                 'password'  => $request->password
             ]);
             if ($auth) {  
-                return Redirect()->to('member');
+                return Redirect()->to('member/dashboard');
             } else {
                 return redirect()->back()
                 ->with('alertlogin',TRUE);
@@ -79,8 +79,13 @@ class LoginController extends Controller
     }
     public function logoutall()
     {
-        Auth::logout();
         Auth::guard('admin')->logout();
+        return redirect('/');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
         return redirect('/');
     }
 }

@@ -110,6 +110,10 @@
 <script src="{{ url('template/dist/js/adminlte.min.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ url('template/dist/js/demo.js') }}"></script>
+<!-- OPTIONAL SCRIPTS -->
+<script src="{{ url('template/plugins/chart.js/Chart.min.js')}}"></script>
+<script src="{{ url('template/dist/js/demo.js')}}"></script>
+{{-- <script src="{{ url('template/dist/js/pages/dashboard3.js')}}"></script> --}}
 {{-- select2 --}}
 <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 <!-- Ekko Lightbox -->

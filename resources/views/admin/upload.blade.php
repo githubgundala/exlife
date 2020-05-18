@@ -15,7 +15,7 @@
           <div class="col-md-12">
           <div class="form-group">
             <label>Member</label>
-            <select class="form-control" name="member" id="member" required>
+            <select class="form-control select2" name="member" id="member" required>
               <option value="">Pilih..</option>
               @foreach ($member as $m)
               <option value="{{ $m->userid }}">{{ $m->name }}</option>  

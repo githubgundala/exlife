@@ -1,7 +1,8 @@
 @extends('layouts.layout')
 @section('menMember','active')
 @section('content')
-<div class="card">
+<div class="row">
+<div class="card col-md-12">
   <div class="card-header">
     <h3 class="card-title">Data List Member</h3>
     <button type="button" class="btn btn-sm float-right" data-toggle="modal" data-target="#modal-edit" style="background-color: #20c997" onclick="modalinsert()"><i class="nav-icon fas fa-plus"></i></button>
@@ -55,6 +56,7 @@
     </table>
   </div>
   <!-- /.card-body -->
+</div>
 </div>
 <!-- /.card -->
 
@@ -176,7 +178,7 @@
 <script type="text/javascript">
   $(document).ready(function () {
     $('#example1 tbody').on('click', '.btn-warning', function () {
-      $('.modal-body').find("input,textarea,select").val('').removeClass('is-invalid').end();
+        $('.modal-body').find("input,textarea,select").val('').removeClass('is-invalid').end();
         $('.titleEdit').html('Edit Member');
         $('.pass').show();
         $('.modal-body input[name="name"]').val($(this).data("name"));
@@ -188,6 +190,30 @@
         $(".modal-body #rekomendasi").val($(this).data("rekomendasi")).change();
         $('.modal-body input[name="id"]').val($(this).data("id"));
         $('form').attr('action', "{{ url('/admin/member/update') }}");
+        $('#insertform').validate({
+          rules: {
+              name:{
+                required: false,
+              },
+              hp:{
+                required: false,
+              },
+              email: {
+                required: false,
+              },
+              username:{
+                required: false,
+                
+              },
+              password:{
+                required: false,
+                
+              },
+              jenis_member:{
+                required: false,
+              },
+          }
+        });
     });
     $('#example1 tbody').on('click', '.btn-danger', function () {
         $('.nam').html($(this).data("name"));

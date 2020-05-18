@@ -1,4 +1,5 @@
 @extends('layouts.layout')
+@section('menDash','active')
 @section('content')
 <div class="row">
 <div class="col-md-6">
@@ -39,14 +40,18 @@
         <!-- /.col -->
       </div>
       
-          <table class="table">
-            <tbody>
-              <tr>
-                <td>Update software</td>
-                <td></td>
-              </tr>
-            </tbody>
-          </table>
+      <table class="table">
+        <tbody>
+          <tr>
+            <td>Alamat</td>
+            <td>: {{ $member->alamat }}</td>
+          </tr>
+          <tr>
+            <td>No HP</td>
+            <td>: {{ $member->hp }}</td>
+          </tr>
+        </tbody>
+      </table>
         
        
       
@@ -55,8 +60,11 @@
   </div>
   <!-- /.widget-user -->
 </div>
+</div>
+<div class="row col-md-12">
 
-<div class="card col-md-6">
+@if ($follower)
+<div class="card col-md-12">
   <div class="card-header">
     <h3 class="card-title">List Follower</h3>
   </div>
@@ -71,7 +79,7 @@
       <tbody>
         @foreach ($follower as $f)
       <tr>
-        <td><a href="{{ url('member/info/'.$f->userid) }}">{{ $f->name }}</a></td>
+        <td><a href="{{ url('member/info/'.$deptfollower.'/'.$f->userid) }}">{{ $f->name }}</a></td>
       </tr>
       @endforeach
       </tbody>
@@ -79,63 +87,50 @@
   </div>
   <!-- /.card-body -->
 </div>
+@endif
 <!-- /.card -->
 </div>
 
-{{-- modal --}}
-<div class="modal fade" id="modal-edit">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Edit Admin</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form role="form">
-        <div class="modal-body">
-            <div class="card-body">
-              <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-              </div>
-            </div>
-        </div>
-        <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-warning">Simpan Perubahan</button>
-        </div>
-      </form>
+<div class="row">
+  @if ($bukti)
+  <div class="col-md-12">
+    <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">List Bukti</h3>
     </div>
-    <!-- /.modal-content -->
-  </div>
-  <!-- /.modal-dialog -->
-</div>
-<div class="modal fade" id="modal-hapus">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Hapus Admin</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Nama User&hellip;</p>
-      </div>
-      <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-danger">Hapus</button>
-      </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example2" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Tanggal</th>
+          <th>Deskripsi</th>
+          <th>Photo</th>
+        </tr>
+        </thead>
+        <tbody>
+          @foreach ($bukti as $u)
+            <tr>
+              <td>{{ $loop->iteration }}</td>
+              <td>{{ $u->created_at }}</td>
+              <td>{{ $u->keterangan }}</td>
+              <td><div class="col-sm-8">
+                <a href="{{ url($u->foto) }}" data-toggle="lightbox" data-title="{{ $u->keterangan }}" data-gallery="gallery">
+                  <img src="{{ url($u->foto) }}" class="img-fluid mb-2" alt="foto">
+                </a>
+              </div></td>
+            </tr>
+            @endforeach
+        </tbody>
+      </table>
     </div>
-    <!-- /.modal-content -->
+    <!-- /.card-body -->
   </div>
-  <!-- /.modal-dialog -->
 </div>
+@endif
+</div>
+
 @endsection
 @push('script')
 <script>
@@ -143,6 +138,16 @@
     $("#example1").DataTable({
       "responsive": true,
       "autoWidth": true,
+    });
+    $("#example2").DataTable({
+      "responsive": true,
+      "autoWidth": true,
+    });
+    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
+      event.preventDefault();
+      $(this).ekkoLightbox({
+        alwaysShowClose: true
+      });
     });
   });
 </script>
